@@ -1,0 +1,1 @@
+{"compilerOptions":{"target":"ES2017","module":"none","strict":true,"noImplicitAny":true,"strictNullChecks":true,"lib":["ES2017","DOM"],"outFile":"script.js","skipLibCheck":true},"files":["script.ts"]}
