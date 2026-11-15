@@ -1,16 +1,282 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bloom Tasks</title><link rel="stylesheet" href="style.css"><script src="script.js" defer></script></head><body>
-<div class="shell"><aside class="side"><a class="brand" href="#" data-page="home">✿ Bloom<span>Tasks</span></a><p class="cap">WORKSPACE</p><nav><button class="nav active" data-page="home">⌂ Overview</button><button class="nav" data-page="tasks">▤ My Tasks <b id="navCount">0</b></button><button class="nav" data-page="focus">◷ Focus Room</button><button class="nav" data-page="insights">▥ Insights</button></nav><div class="side-bottom"><div class="tip">🌱<b>Little steps matter.</b><small>One task at a time is still progress.</small></div><button class="nav" data-page="settings">⚙ Settings</button><p class="profile">🟡 My Workspace<br><small>Personal planner</small></p></div></aside>
-<main><header><div><small id="today"></small><h1 id="heading">Good day, planner! ☀️</h1></div><button class="new" id="newTask">＋ New task</button></header>
-<section class="page shown" id="home"><div class="hero"><div><small>YOUR PERSONAL PRODUCTIVITY SPACE</small><h2>Make room for what<br>matters most.</h2><p>Plan gently. Focus deeply. Celebrate every win.</p><button data-go="tasks">Explore my tasks →</button></div><div class="hero-art">☀️<strong>🌿</strong><i>small steps<br><b>big days</b> ✨</i></div></div><div class="sect"><div><small>AT A GLANCE</small><h2>Your progress</h2></div><button class="link" data-go="insights">View insights →</button></div><div class="stats"><article class="green"><small>Total tasks</small><strong id="total">0</strong><p>Things on your list</p></article><article class="yellow"><small>Completed</small><strong id="done">0</strong><p>Wins collected</p></article><article class="purple"><small>Still to do</small><strong id="pending">0</strong><p>You've got this</p></article></div><div class="columns"><article class="card"><small>KEEP GOING</small><h3>Daily progress</h3><div class="percent" id="percent">0%</div><div class="bar"><i id="bar"></i></div><p id="progressText">Every completed task is a little victory.</p></article><article class="card"><small>UP NEXT</small><h3>Upcoming tasks</h3><ul id="upcoming"></ul><p id="upcomingEmpty">Your next steps will appear here 🌼</p></article></div></section>
-<section class="page" id="tasks"><div class="intro"><small>YOUR TO-DO SPACE</small><h2>All your tasks, in one place.</h2><p>Capture it, organize it, get it done.</p></div><form id="taskForm" class="add"><input id="taskInput" placeholder="What do you need to do?" maxlength="120" required><input id="dueDate" type="date"><select id="priority"><option>Low</option><option selected>Medium</option><option>High</option></select><button class="primary">＋ Add task</button></form><div class="toolbar"><div><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="active">To do</button><button class="filter" data-filter="completed">Completed</button></div><input id="search" placeholder="⌕ Search tasks..."></div><ul id="list" class="list"></ul><p id="empty" class="empty">Nothing here yet. Add your first task 🌷</p><button id="clear" class="clear">Clear completed tasks</button></section>
-<section class="page" id="focus"><div class="intro"><small>SLOW DOWN TO SPEED UP</small><h2>Welcome to your Focus Room.</h2><p>Give one important thing your full attention.</p></div><article class="focus-card"><small>A LITTLE TIME FOR YOU</small><div id="clock">25:00</div><p id="timerStatus">Ready when you are. You can do this.</p><div class="timer-buttons"><button class="primary" id="start">Start focus</button><button id="reset">Reset</button></div><div class="presets"><button data-min="15">15 min</button><button class="chosen" data-min="25">25 min</button><button data-min="45">45 min</button></div></article><div class="note">🌿 <span><b>Focus tip</b><br>Choose one task, silence distractions, and take a small break when you're done.</span></div></section>
-<section class="page" id="insights"><div class="intro"><small>YOUR LITTLE WINS</small><h2>Look how far you've come.</h2><p>Your progress, made visible.</p></div><div class="stats"><article class="green"><small>Completed tasks</small><strong id="iDone">0</strong><p>Every win counts</p></article><article class="yellow"><small>Completion rate</small><strong id="iRate">0%</strong><p>Keep building momentum</p></article><article class="purple"><small>High priority left</small><strong id="iHigh">0</strong><p>Focus on what matters</p></article></div><article class="card quote"><small>A NOTE TO REMEMBER</small><h3>Progress isn't about doing everything.</h3><p>It's about taking the next small step, showing up again, and being proud of what you finish. Keep going — you're growing. 🌱</p></article></section>
-<section class="page" id="settings"><div class="intro"><small>MAKE IT YOURS</small><h2>Your workspace settings.</h2><p>A few details about your Bloom Tasks planner.</p></div><article class="card settings"><div><b>Task storage</b><p>Your tasks are saved in this browser using localStorage.</p><em>● Active</em></div><div class="theme-setting"><b>Colour theme</b><p>Choose a look for your workspace. Your choice stays saved after refresh.</p>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bloom Tasks</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="shell">
+
+<aside class="side">
+<a class="brand" href="#" data-page="home">✿ Bloom<span>Tasks</span></a>
+
+<p class="cap">WORKSPACE</p>
+
+<nav>
+<button class="nav active" data-page="home">⌂ Overview</button>
+<button class="nav" data-page="tasks">▤ My Tasks <b id="navCount">0</b></button>
+<button class="nav" data-page="focus">◷ Focus Room</button>
+<button class="nav" data-page="insights">▥ Insights</button>
+<button class="nav mobile-settings" data-page="settings">⚙ Settings</button>
+</nav>
+
+<div class="side-bottom">
+<div class="tip">
+🌱
+<b>Little steps matter.</b>
+<small>One task at a time is still progress.</small>
+</div>
+<p class="profile">🟡 My Workspace<br><small>Personal planner</small></p>
+</div>
+</aside>
+
+<main>
+
+<header>
+<div>
+<small id="today"></small>
+<h1 id="heading">Good day, planner! ☀️</h1>
+</div>
+<button class="new" id="newTask">＋ New task</button>
+</header>
+
+<section class="page shown" id="home">
+
+<div class="hero">
+<div>
+<small>YOUR PERSONAL PRODUCTIVITY SPACE</small>
+<h2>Make room for what<br>matters most.</h2>
+<p>Plan gently. Focus deeply. Celebrate every win.</p>
+<button data-go="tasks">Explore my tasks →</button>
+</div>
+
+<div class="hero-art">
+☀️
+<strong>🌿</strong>
+<i>small steps<br><b>big days</b> ✨</i>
+</div>
+</div>
+
+<div class="sect">
+<div>
+<small>AT A GLANCE</small>
+<h2>Your progress</h2>
+</div>
+<button class="link" data-go="insights">View insights →</button>
+</div>
+
+<div class="stats">
+<article class="green">
+<small>Total tasks</small>
+<strong id="total">0</strong>
+<p>Things on your list</p>
+</article>
+
+<article class="yellow">
+<small>Completed</small>
+<strong id="done">0</strong>
+<p>Wins collected</p>
+</article>
+
+<article class="purple">
+<small>Still to do</small>
+<strong id="pending">0</strong>
+<p>You've got this</p>
+</article>
+</div>
+
+<div class="columns">
+<article class="card">
+<small>KEEP GOING</small>
+<h3>Daily progress</h3>
+<div class="percent" id="percent">0%</div>
+<div class="bar"><i id="bar"></i></div>
+<p id="progressText">Every completed task is a little victory.</p>
+</article>
+
+<article class="card">
+<small>UP NEXT</small>
+<h3>Upcoming tasks</h3>
+<ul id="upcoming"></ul>
+<p id="upcomingEmpty">Your next steps will appear here 🌼</p>
+</article>
+</div>
+</section>
+
+<section class="page" id="tasks">
+
+<div class="intro">
+<small>YOUR TO-DO SPACE</small>
+<h2>All your tasks, in one place.</h2>
+<p>Capture it, organize it, get it done.</p>
+</div>
+
+<form id="taskForm" class="add">
+<input id="taskInput" placeholder="What do you need to do?" maxlength="120" required>
+<input id="dueDate" type="date">
+<select id="priority">
+<option>Low</option>
+<option selected>Medium</option>
+<option>High</option>
+</select>
+<button class="primary">＋ Add task</button>
+</form>
+
+<div class="toolbar">
+<div>
+<button class="filter active" data-filter="all">All</button>
+<button class="filter" data-filter="active">To do</button>
+<button class="filter" data-filter="completed">Completed</button>
+</div>
+<input id="search" placeholder="⌕ Search tasks...">
+</div>
+
+<ul id="list" class="list"></ul>
+<p id="empty" class="empty">Nothing here yet. Add your first task 🌷</p>
+<button id="clear" class="clear">Clear completed tasks</button>
+
+</section>
+
+<section class="page" id="focus">
+
+<div class="intro">
+<small>SLOW DOWN TO SPEED UP</small>
+<h2>Welcome to your Focus Room.</h2>
+<p>Give one important thing your full attention.</p>
+</div>
+
+<article class="focus-card">
+<small>A LITTLE TIME FOR YOU</small>
+<div id="clock">25:00</div>
+<p id="timerStatus">Ready when you are. You can do this.</p>
+
+<div class="timer-buttons">
+<button class="primary" id="start">Start focus</button>
+<button id="reset">Reset</button>
+</div>
+
+<div class="presets">
+<button data-min="15">15 min</button>
+<button class="chosen" data-min="25">25 min</button>
+<button data-min="45">45 min</button>
+</div>
+</article>
+
+<div class="note">
+🌿
+<span><b>Focus tip</b><br>Choose one task, silence distractions, and take a small break when you're done.</span>
+</div>
+</section>
+
+<section class="page" id="insights">
+
+<div class="intro">
+<small>YOUR LITTLE WINS</small>
+<h2>Look how far you've come.</h2>
+<p>Your progress, made visible.</p>
+</div>
+
+<div class="stats">
+<article class="green">
+<small>Completed tasks</small>
+<strong id="iDone">0</strong>
+<p>Every win counts</p>
+</article>
+
+<article class="yellow">
+<small>Completion rate</small>
+<strong id="iRate">0%</strong>
+<p>Keep building momentum</p>
+</article>
+
+<article class="purple">
+<small>High priority left</small>
+<strong id="iHigh">0</strong>
+<p>Focus on what matters</p>
+</article>
+</div>
+
+<article class="card quote">
+<small>A NOTE TO REMEMBER</small>
+<h3>Progress isn't about doing everything.</h3>
+<p>It's about taking the next small step, showing up again, and being proud of what you finish. Keep going — you're growing. 🌱</p>
+</article>
+</section>
+
+<section class="page" id="settings">
+
+<div class="intro">
+<small>MAKE IT YOURS</small>
+<h2>Your workspace settings.</h2>
+<p>A few details about your Bloom Tasks planner.</p>
+</div>
+
+<article class="card settings">
+
+<div>
+<b>Task storage</b>
+<p>Your tasks are saved in this browser using localStorage.</p>
+<em>● Active</em>
+</div>
+
+<div class="theme-setting">
+<b>Colour theme</b>
+<p>Choose a look for your workspace. Your choice stays saved after refresh.</p>
+
 <div class="theme-picker" id="themePicker" aria-label="Choose colour theme">
-<button type="button" class="theme-choice" data-theme-choice="sage"><i class="swatch sage-swatch"></i><span>Sage</span></button>
-<button type="button" class="theme-choice" data-theme-choice="sunshine"><i class="swatch sunshine-swatch"></i><span>Sunshine</span></button>
-<button type="button" class="theme-choice" data-theme-choice="lavender"><i class="swatch lavender-swatch"></i><span>Lavender</span></button>
-<button type="button" class="theme-choice" data-theme-choice="rose"><i class="swatch rose-swatch"></i><span>Rose</span></button>
-<button type="button" class="theme-choice" data-theme-choice="ocean"><i class="swatch ocean-swatch"></i><span>Ocean</span></button>
-<button type="button" class="theme-choice" data-theme-choice="dark"><i class="swatch dark-swatch"></i><span>Dark</span></button>
-</div><small class="theme-status" id="themeStatus" aria-live="polite">Sage theme selected</small></div><div><b>Clear completed tasks</b><p>Remove tasks you've already finished.</p><button id="clearSettings">Clear completed</button></div></article></section><footer>Made for your goals, big and small ✿</footer></main></div></body></html>
+
+<button type="button" class="theme-choice" data-theme-choice="sage">
+<i class="swatch sage-swatch"></i>
+<span>Sage</span>
+</button>
+
+<button type="button" class="theme-choice" data-theme-choice="sunshine">
+<i class="swatch sunshine-swatch"></i>
+<span>Sunshine</span>
+</button>
+
+<button type="button" class="theme-choice" data-theme-choice="lavender">
+<i class="swatch lavender-swatch"></i>
+<span>Lavender</span>
+</button>
+
+<button type="button" class="theme-choice" data-theme-choice="rose">
+<i class="swatch rose-swatch"></i>
+<span>Rose</span>
+</button>
+
+<button type="button" class="theme-choice" data-theme-choice="ocean">
+<i class="swatch ocean-swatch"></i>
+<span>Ocean</span>
+</button>
+
+<button type="button" class="theme-choice" data-theme-choice="dark">
+<i class="swatch dark-swatch"></i>
+<span>Dark</span>
+</button>
+
+</div>
+
+<small class="theme-status" id="themeStatus" aria-live="polite">Sage theme selected</small>
+</div>
+
+<div>
+<b>Clear completed tasks</b>
+<p>Remove tasks you've already finished.</p>
+<button id="clearSettings">Clear completed</button>
+</div>
+
+</article>
+</section>
+
+<footer>Made for your goals, big and small ✿</footer>
+
+</main>
+</div>
+</body>
+</html>
